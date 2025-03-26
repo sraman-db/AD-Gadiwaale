@@ -33,37 +33,27 @@ AD-Gadiwaale is a comprehensive web-based car rental platform that simplifies th
 - Payment Gateway: Static mock implementation
 - Authentication: Custom login system
 
-## 📦 Project Structure
-```
-AD-Gadiwaale/
+CAR RENTAL SYS/
 │
-├── public/                 # Static assets
-│   ├── css/
-│   ├── js/
-│   └── images/
+├── Backend/
+│   ├── cardb.js
+│   └── server.js
 │
-├── views/                  # HTML templates
-│   ├── index.html
+├── Frontend/
+│   ├── imgs/
+│   ├── About.html
 │   ├── cars.html
-│   ├── login.html
-│   ├── booking.html
-│   └── contact.html
+│   ├── contactus.html
+│   ├── createaccount.html
+│   ├── home.html
+│   ├── index2.0.html
+│   ├── review.html
+│   ├── terms.html
+│   └── tour.html
 │
-├── routes/                 # Server-side routes
-│   ├── auth.js
-│   ├── booking.js
-│   └── contact.js
-│
-├── models/                 # Database models
-│   ├── user.js
-│   └── booking.js
-│
-├── config/                 # Configuration files
-│   ├── database.js
-│   └── sheets.js
-│
-└── README.md
-```
+├── node_modules/
+├── package-lock.json
+└── package.json
 
 ## 🚀 Getting Started
 
@@ -130,14 +120,8 @@ AD-Gadiwaale/
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
-Your Name - youremail@example.com
-
-Project Link: [https://github.com/yourusername/AD-Gadiwaale](https://github.com/yourusername/AD-Gadiwaale)
+Your Name - Sraman Dutta Bar
 
 ---
-
-**Note**: This is a mock implementation. Ensure proper security measures and compliance with local regulations when deploying a real car rental system.
