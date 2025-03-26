@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD_Gadiwaale</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #2980b9;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .car-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .car-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .car-details {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .car-details p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .modal-content h3 {
+            margin-top: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AD-Gadiwaale</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="tour.html">Local Tourism</a></li>
+                <li><a href="review.html">Reviews</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>AVAILABLE CARS</h2>
+
+        <div class="car-grid">
+            <!-- Car Cards -->
+            <div class="car-card" onclick="openModal('audiA4')">
+                <img src="imgs/audi_a4.jpg" alt="Audi A4">
+                <h3>Audi A4</h3>
+                <div class="car-details">
+                    
+                     <p>Fare: Rs. 36/km & Rs. 5200/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2022</p>
+
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('hyundaiCreta')">
+                <img src="imgs/hyundai_creta.jpg" alt="Hyundai Creta">
+                <h3>Hyundai Creta</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 22/km & Rs. 2900/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2020</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('bmw6Series')">
+                <img src="imgs/bmw_6series.jpg" alt="BMW 6-Series">
+                <h3>BMW 6-Series</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 39/km & Rs. 6950/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2023</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('mercedesEClass')">
+                <img src="imgs/mercedes_eclass.jpg" alt="Mercedes-Benz E-Class">
+                <h3>Mercedes-Benz E-Class</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 45/km & Rs. 7200/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2022</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('fordEcoSport')">
+                <img src="imgs/ford_ecosport.jpg" alt="Ford EcoSport">
+                <h3>Ford EcoSport</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 45/km & Rs. 7000/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2019</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('toyotaFortuner')">
+                <img src="imgs/toyota.jpg" alt="Toyota Fortuner">
+                <h3>Toyota Fortuner</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 100/km & Rs. 8000/day</p>
+                     <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2025</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('mgHector')">
+                <img src="imgs/mg_hector.jpg" alt="MG Hector">
+                <h3>MG Hector</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 45/km & Rs. 7000/day</p>
+                     <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2024</p>
+                </div>
+            </div>
+
+            <div class="car-card" onclick="openModal('sCross')">
+                <img src="imgs/s-cross.jpg" alt="Suzuki S-Cross">
+                <h3>Suzuki S-Cross</h3>
+                <div class="car-details">
+                    <p>Fare: Rs. 50/km & Rs. 7000/day</p>
+                    <p>Seater: 6</p>
+                    <p>Petrol</p>
+                    <p>Year: 2020</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for all cars -->
+    <div id="audiA4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('audiA4')">&times;</span>
+            <img src="imgs/audi_a4.jpg" alt="Audi A4">
+            <h3>Audi A4</h3>
+            <p>Fare: Rs. 36/km & Rs. 5200/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2021</p>
+        </div>
+    </div>
+
+    <div id="hyundaiCreta" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hyundaiCreta')">&times;</span>
+            <img src="imgs/hyundai_creta.jpg" alt="Hyundai Creta">
+            <h3>Hyundai Creta</h3>
+            <p>AC Fare: Rs. 22/km & Rs. 2900/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2018</p>
+        </div>
+    </div>
+
+    <div id="bmw6Series" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('bmw6Series')">&times;</span>
+            <img src="imgs/bmw_6series.jpg" alt="BMW 6-Series">
+            <h3>BMW 6-Series</h3>
+            <p>Fare: Rs. 39/km & Rs. 6950/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2020</p>
+        </div>
+    </div>
+
+    <div id="mercedesEClass" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('mercedesEClass')">&times;</span>
+            <img src="imgs/mercedes_eclass.jpg" alt="Mercedes-Benz E-Class">
+            <h3>Mercedes-Benz E-Class</h3>
+            <p>Fare: Rs. 45/km & Rs. 7200/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2022</p>
+        </div>
+    </div>
+
+    <div id="fordEcoSport" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fordEcoSport')">&times;</span>
+            <img src="imgs/ford_ecosport.jpg" alt="Ford EcoSport">
+            <h3>Ford EcoSport</h3>
+            <p>Fare: Rs. 45/km & Rs. 7000/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2021</p>
+        </div>
+    </div>
+
+    <div id="toyotaFortuner" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('toyotaFortuner')">&times;</span>
+            <img src="imgs/toyota.jpg" alt="Toyota Fortuner">
+            <h3>Toyota Fortuner</h3>
+            <p>Fare: Rs. 100/km & Rs. 8000/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2023</p>
+        </div>
+    </div>
+
+    <div id="mgHector" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('mgHector')">&times;</span>
+            <img src="imgs/mg_hector.jpg" alt="MG Hector">
+            <h3>MG Hector</h3>
+            <p>Fare: Rs. 45/km & Rs. 7000/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2024</p>
+        </div>
+    </div>
+
+    <div id="sCross" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sCross')">&times;</span>
+            <img src="imgs/s-cross.jpg" alt="Suzuki S-Cross">
+            <h3>Suzuki S-Cross</h3>
+            <p>Fare: Rs. 50/km & Rs. 7000/day</p>
+            <p>Seater: 6</p>
+            <p>Petrol</p>
+            <p>Year: 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to open modal
+        function openModal(carId) {
+            var modal = document.getElementById(carId);
+            modal.style.display = "flex";
+            setTimeout(function() {
+                modal.style.opacity = 1;
+                modal.querySelector('.modal-content').style.transform = "scale(1)";
+            }, 10);
+        }
+
+        // Function to close modal
+        function closeModal(carId) {
+            var modal = document.getElementById(carId);
+            modal.style.opacity = 0;
+            modal.querySelector('.modal-content').style.transform = "scale(0.8)";
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 300);
+        }
+
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                closeModal(event.target.id);
+            }
+        }
+    </script>
+
+</body>
+</html>

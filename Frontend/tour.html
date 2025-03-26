@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD-Gadiwaale - Discover Odisha Tourism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            padding: 6rem 2rem 5rem;
+            text-align: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        nav {
+            background-color: #1a76d2;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #e3f2fd;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .destination-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background-color: #fff;
+            border: 2px solid #1a76d2;
+            color: #1a76d2;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: #1a76d2;
+            color: white;
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .destination-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-image {
+            height: 220px;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-location {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(26, 118, 210, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+        
+        .card-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .distance, .rating {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #1a76d2;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #0d5ca8;
+        }
+        
+        footer {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: #64b5f6;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: #64b5f6;
+        }
+        
+        .kiit-info {
+            display: inline-block;
+            background-color: #e3f2fd;
+            color: #1a76d2;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2c4a76;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul li {
+                margin: 0 0.8rem;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="company-logo">
+            <h2><span>AD-</span>Gadiwaale</h2>
+        </div>
+        <div class="hero-text">
+            <h1>Discover The Magic of Odisha</h1>
+            <p>Explore ancient temples, pristine beaches, wildlife sanctuaries, and rich cultural heritage in the eastern jewel of India</p>
+            <a href="#destinations" class="cta-button">Explore Destinations</a>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="About.html">About Us</a></li>
+            <li><a href="cars.html">Cars</a></li>
+            <li><a href="review.html">Reviews</a></li>
+            <li><a href="contactus.html">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main id="destinations">
+        
+        <div class="destinations-grid">
+            <!-- Destination 1 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/Konark.jpg" alt="Konark Sun Temple">
+                    <div class="card-location">Konark, Puri District</div>
+                </div>
+                <div class="card-content">
+                    <h3>Konark Sun Temple</h3>
+                    <p>A UNESCO World Heritage site, this 13th-century Sun Temple is designed in the form of a chariot with intricate stone carvings.</p>
+                    <a href="https://maps.app.goo.gl/9qTXjqbFE17xiNDa6" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">65 km from KIIT University</div>
+                    <div class="rating">★★★★★ (4.8)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 2 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/Jagannath temple.webp" alt="Jagannath Temple">
+                    <div class="card-location">Puri</div>
+                </div>
+                <div class="card-content">
+                    <h3>Jagannath Temple</h3>
+                    <p>One of the Char Dham pilgrimages for Hindus, this sacred temple is famous for its annual Rath Yatra (Chariot Festival).</p>
+                    <a href="https://maps.app.goo.gl/7FVJ1wed4ViRDY7HA" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">60 km from KIIT University</div>
+                    <div class="rating">★★★★★ (4.9)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 3 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/chilika.jpg" alt="Chilika Lake">
+                    <div class="card-location">Khurda, Puri & Ganjam Districts</div>
+                </div>
+                <div class="card-content">
+                    <h3>Chilika Lake</h3>
+                    <p>Asia's largest brackish water lagoon, home to Irrawaddy dolphins, migratory birds and a biodiversity hotspot.</p>
+                    <a href="https://maps.app.goo.gl/9Q2NUsoEN4QGhvpr9" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">80 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.7)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 4 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/lingraj.jpg" alt="Lingaraj Temple">
+                    <div class="card-location">Bhubaneswar</div>
+                </div>
+                <div class="card-content">
+                    <h3>Lingaraj Temple</h3>
+                    <p>The largest temple in Bhubaneswar, dedicated to Lord Shiva, showcasing ancient Kalinga architecture from the 11th century.</p>
+                    <a href="https://maps.app.goo.gl/kXZiP6JbFs73TAVc7" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">8 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.6)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 5 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/puri beach.jpg" alt="Puri Beach">
+                    <div class="card-location">Puri</div>
+                </div>
+                <div class="card-content">
+                    <h3>Puri Beach</h3>
+                    <p>A sacred beach destination known for its golden sands, religious significance, and spectacular sunrise views.</p>
+                    <a href="https://maps.app.goo.gl/adxkyA3E2c1mNPQ26" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">62 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 6 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/simlipal.jpg" alt="Simlipal National Park">
+                    <div class="card-location">Mayurbhanj District</div>
+                </div>
+                <div class="card-content">
+                    <h3>Simlipal National Park</h3>
+                    <p>A tiger reserve and wildlife sanctuary with rich biodiversity, featuring beautiful waterfalls and dense forest.</p>
+                    <a href="https://maps.app.goo.gl/krmNU32nToTe8Vfd8" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">170 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.4)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 7 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/udaygiri.webp" alt="Udayagiri and Khandagiri Caves">
+                    <div class="card-location">Bhubaneswar</div>
+                </div>
+                <div class="card-content">
+                    <h3>Udayagiri and Khandagiri Caves</h3>
+                    <p>Ancient Jain rock-cut caves dating back to 2nd century BCE, featuring intricate carvings and historical inscriptions.</p>
+                    <a href="https://maps.app.goo.gl/jLeBWvY5jdiM1mkaA" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">12 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.3)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 8 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/nandankanan.jpg" alt="Nandankanan Zoological Park">
+                    <div class="card-location">Bhubaneswar</div>
+                </div>
+                <div class="card-content">
+                    <h3>Nandankanan Zoological Park</h3>
+                    <p>A premier zoo with white tigers, reptiles, and a botanical garden, spread across 400 hectares of lush landscape.</p>
+                    <a href="https://maps.app.goo.gl/oZXoUpDy1ypfagHf7" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">15 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.5)</div>
+                </div>
+            </div>
+            
+            <!-- Destination 9 -->
+            <div class="destination-card">
+                <div class="card-image">
+                    <img src="imgs/chandrabhaga.webp" alt="Chandrabhaga Beach">
+                    <div class="card-location">Konark</div>
+                </div>
+                <div class="card-content">
+                    <h3>Chandrabhaga Beach</h3>
+                    <p>A pristine beach near the Sun Temple known for its clean shores, peaceful atmosphere, and stunning sunrise views.</p>
+                    <a href="https://maps.app.goo.gl/DhjZcjnHZ7s5KhrG6" class="cta-button">Map</a>
+                </div>
+                <div class="card-footer">
+                    <div class="distance">68 km from KIIT University</div>
+                    <div class="rating">★★★★☆ (4.2)</div>
+                </div>
+            </div>
+
+            <!-- Destination 10 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/koraput.jpg" alt="Koraput">
+        <div class="card-location">Odisha</div>
+    </div>
+    <div class="card-content">
+        <h3>Koraput</h3>
+        <p>A scenic hill station known for its lush valleys, tribal culture, coffee plantations, and pleasant climate throughout the year.</p>
+        <a href="https://maps.app.goo.gl/aYX31ekLAdwdCXFa7" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">502 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.1)</div>
+    </div>
+</div>
+
+            <!-- Destination 11 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/daringbadi.jpg" alt="Daringbadi">
+        <div class="card-location">Kandhamal</div>
+    </div>
+    <div class="card-content">
+        <h3>Daringbadi</h3>
+        <p>Known as the 'Kashmir of Odisha', this hill station features pine forests, coffee gardens, beautiful valleys, and occasional snowfall in winter.</p>
+        <a href="https://maps.app.goo.gl/JZwsatLhpeVUrbKN6" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">250 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.3)</div>
+    </div>
+</div>
+
+            <!-- Destination 12 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Taptapani.jpg" alt="Taptapani">
+        <div class="card-location">Ganjam</div>
+    </div>
+    <div class="card-content">
+        <h3>Taptapani</h3>
+        <p>Famous for its natural hot sulphur springs with medicinal properties, surrounded by lush green hills, dense forests, and serene environment.</p>
+        <a href="https://maps.app.goo.gl/a1a2NMDgZVKAzDBD9" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">175 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.0)</div>
+    </div>
+</div>
+
+<!-- Destination 13 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Harisankar.webp" alt="Harishankar Waterfall">
+        <div class="card-location">Balangir</div>
+    </div>
+    <div class="card-content">
+        <h3>Harishankar Waterfall</h3>
+        <p>A picturesque waterfall and temple complex at the foot of Gandhamardan hills, offering natural rock slides, sacred pools, and panoramic valley views.</p>
+        <a href="https://maps.app.goo.gl/tbWTRSCBK7ekccUU6" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">320 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.4)</div>
+    </div>
+</div>
+
+<!-- Destination 14 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Bhitarkanika.webp" alt="Bhitarkanika Wildlife Sanctuary">
+        <div class="card-location">Kendrapara</div>
+    </div>
+    <div class="card-content">
+        <h3>Bhitarkanika Wildlife Sanctuary</h3>
+        <p>Home to the world's largest white crocodiles, diverse mangrove forests, and migratory birds. Known for its rich biodiversity and Olive Ridley turtle nesting sites.</p>
+        <a href="https://maps.app.goo.gl/vJzwH3aLPX6wbT8FA" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">130 km from KIIT University</div>
+        <div class="rating">★★★★★ (4.6)</div>
+    </div>
+</div>
+
+<!-- Destination 15 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Joranda.jpg" alt="Joranda Waterfall">
+        <div class="card-location">Simlipal</div>
+    </div>
+    <div class="card-content">
+        <h3>Joranda Waterfall</h3>
+        <p>A magnificent 150-meter high waterfall in Simlipal National Park where water plunges directly from a cliff. Known for its majestic appearance and pristine forest surroundings.</p>
+        <a href="https://maps.app.goo.gl/Yks3JSeQdauwihBx8" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">230 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.5)</div>
+    </div>
+</div>
+
+<!-- Destination 16 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/sambalpur.jpg" alt="Sambalpur">
+        <div class="card-location">Western Odisha</div>
+    </div>
+    <div class="card-content">
+        <h3>Sambalpur</h3>
+        <p>Famous for Hirakud Dam, the world's longest earthen dam, and the vibrant Sambalpuri textiles. Rich in folk culture with the iconic Sambalpuri dance and music traditions.</p>
+        <a href="https://maps.app.goo.gl/xvLp3qi9yWzUkECF6" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">320 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.2)</div>
+    </div>
+</div>
+
+<!-- Destination 17 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Rushikulya.avif" alt="Rushikulya Beach">
+        <div class="card-location">Ganjam</div>
+    </div>
+    <div class="card-content">
+        <h3>Rushikulya Beach</h3>
+        <p>Famous for mass nesting of Olive Ridley turtles, this serene beach is one of the world's most important turtle nesting sites, offering a unique wildlife experience.</p>
+        <a href="https://maps.app.goo.gl/D2oNAKdeJXeFZT437" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">160 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.3)</div>
+    </div>
+</div>
+
+<!-- Destination 18 -->
+<div class="destination-card">
+    <div class="card-image">
+        <img src="imgs/Tikarpara.jpg" alt="Tikarpara">
+        <div class="card-location">Angul</div>
+    </div>
+    <div class="card-content">
+        <h3>Tikarpara</h3>
+        <p>Located in the Satkosia Tiger Reserve, Tikarpara offers breathtaking views of the Mahanadi River gorge and is known for its diverse wildlife including gharials, mugger crocodiles, and over 300 bird species.</p>
+        <a href="https://maps.app.goo.gl/ti9B7LQttYdQPjut9" class="cta-button">Map</a>
+    </div>
+    <div class="card-footer">
+        <div class="distance">145 km from KIIT University</div>
+        <div class="rating">★★★★☆ (4.4)</div>
+    </div>
+</div>
+
+
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Odisha Tourism</h3>
+                <p>Odisha Tourism is dedicated to promoting the cultural heritage, natural beauty, and diverse attractions of the eastern Indian state of Odisha.</p>
+            </div>    
+        <div class="copyright">
+            <p>&copy; 2025 AD-Gadiwaale. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

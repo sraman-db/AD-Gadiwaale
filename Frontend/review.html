@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD-Gadiwaale - Customer Reviews</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .review-form-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .review-list-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 10px;
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .rating-select {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .star-rating {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #d1d5db;
+        }
+        
+        .star-rating.active {
+            color: var(--accent-color);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .review-item {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .review-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .review-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            margin-bottom: 12px;
+            color: var(--accent-color);
+        }
+        
+        .review-text {
+            line-height: 1.6;
+        }
+        
+        .empty-reviews {
+            text-align: center;
+            padding: 30px 0;
+            color: #6b7280;
+        }
+        
+        .stats-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .average-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .rating-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .total-reviews {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        footer {
+            background-color: var(--dark-text);
+            color: var(--light-text);
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            color: var(--light-text);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AD-Gadiwaale</div>
+        <div class="tagline">Your Trusted Automotive Rental Service</div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="About.html">About Us</a></li>
+            <li><a href="cars.html">Cars</a></li>
+            <li><a href="tour.html">Local Tourism</a></li>
+            <li><a href="contactus.html">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="review-form-container">
+                <h2>Share Your Experience</h2>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="rating-select">
+                            <span class="star-rating" data-rating="1"><i class="fas fa-star"></i></span>
+                            <span class="star-rating" data-rating="2"><i class="fas fa-star"></i></span>
+                            <span class="star-rating" data-rating="3"><i class="fas fa-star"></i></span>
+                            <span class="star-rating" data-rating="4"><i class="fas fa-star"></i></span>
+                            <span class="star-rating" data-rating="5"><i class="fas fa-star"></i></span>
+                        </div>
+                        <input type="hidden" id="rating" name="rating" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="review">Your Review</label>
+                        <textarea id="review" name="review" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+            
+            <div class="review-list-container">
+                <h2>Customer Reviews</h2>
+                
+                <div class="stats-container">
+                    <div class="average-rating">
+                        <div class="rating-number" id="averageRating">0.0</div>
+                        <div class="rating-stars" id="averageStars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="total-reviews" id="totalReviews">0 Reviews</div>
+                </div>
+                
+                <div id="reviewList">
+                    <div class="empty-reviews">
+                        <i class="fas fa-comment-slash" style="font-size: 2rem; color: #9ca3af; margin-bottom: 10px;"></i>
+                        <p>No reviews yet. Be the first to share your experience!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2025 AD-Gadiwaale. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Rating selection functionality
+        const ratingStars = document.querySelectorAll('.star-rating');
+        const ratingInput = document.getElementById('rating');
+        
+        ratingStars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating;
+                
+                // Update UI
+                ratingStars.forEach(s => {
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Form submission and review display
+        document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const rating = parseInt(document.getElementById('rating').value) || 0;
+            const reviewText = document.getElementById('review').value;
+            
+            // Validate rating
+            if (rating === 0) {
+                alert('Please select a rating');
+                return;
+            }
+            
+            // Create a new review object with current date
+            const review = {
+                name: name,
+                email: email,
+                rating: rating,
+                text: reviewText,
+                date: new Date().toISOString()
+            };
+            
+            // Get existing reviews from localStorage or initialize an empty array
+            const reviews = JSON.parse(localStorage.getItem('adgadiwaaleReviews')) || [];
+            
+            // Add new review to the array
+            reviews.push(review);
+            
+            // Save updated reviews to localStorage
+            localStorage.setItem('adgadiwaaleReviews', JSON.stringify(reviews));
+            
+            // Display the reviews and update stats
+            displayReviews();
+            updateStats();
+            
+            // Clear the form fields after submission
+            document.getElementById('reviewForm').reset();
+            ratingStars.forEach(s => s.classList.remove('active'));
+            ratingInput.value = 0;
+        });
+        
+        // Function to display reviews
+        function displayReviews() {
+            const reviewList = document.getElementById('reviewList');
+            
+            // Get reviews from localStorage
+            const reviews = JSON.parse(localStorage.getItem('adgadiwaaleReviews')) || [];
+            
+            // If no reviews, show the empty state
+            if (reviews.length === 0) {
+                reviewList.innerHTML = `
+                    <div class="empty-reviews">
+                        <i class="fas fa-comment-slash" style="font-size: 2rem; color: #9ca3af; margin-bottom: 10px;"></i>
+                        <p>No reviews yet. Be the first to share your experience!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Clear previous reviews
+            reviewList.innerHTML = '';
+            
+            // Sort reviews by date (newest first)
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Display all reviews
+            reviews.forEach(review => {
+                // Format date
+                const reviewDate = new Date(review.date);
+                const formattedDate = reviewDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                // Create stars HTML
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= review.rating) {
+                        starsHTML += '<i class="fas fa-star"></i>';
+                    } else {
+                        starsHTML += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                // Create review element
+                const reviewElement = document.createElement('div');
+                reviewElement.classList.add('review-item');
+                reviewElement.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-name">${review.name}</div>
+                        <div class="review-date">${formattedDate}</div>
+                    </div>
+                    <div class="review-rating">${starsHTML}</div>
+                    <div class="review-text">${review.text}</div>
+                `;
+                
+                reviewList.appendChild(reviewElement);
+            });
+        }
+        
+        // Function to update stats (average rating and total reviews)
+        function updateStats() {
+            const reviews = JSON.parse(localStorage.getItem('adgadiwaaleReviews')) || [];
+            const totalReviewsElement = document.getElementById('totalReviews');
+            const averageRatingElement = document.getElementById('averageRating');
+            const averageStarsElement = document.getElementById('averageStars');
+            
+            // Update total reviews count
+            totalReviewsElement.textContent = `${reviews.length} ${reviews.length === 1 ? 'Review' : 'Reviews'}`;
+            
+            // Calculate average rating
+            if (reviews.length > 0) {
+                const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+                const average = totalRating / reviews.length;
+                
+                // Update average rating number
+                averageRatingElement.textContent = average.toFixed(1);
+                
+                // Update stars visual
+                averageStarsElement.innerHTML = '';
+                
+                // Full stars
+                const fullStars = Math.floor(average);
+                for (let i = 0; i < fullStars; i++) {
+                    averageStarsElement.innerHTML += '<i class="fas fa-star"></i>';
+                }
+                
+                // Half star
+                if (average - fullStars >= 0.5) {
+                    averageStarsElement.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+                }
+                
+                // Empty stars
+                const emptyStars = 5 - Math.ceil(average);
+                for (let i = 0; i < emptyStars; i++) {
+                    averageStarsElement.innerHTML += '<i class="far fa-star"></i>';
+                }
+            } else {
+                averageRatingElement.textContent = '0.0';
+                averageStarsElement.innerHTML = `
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                `;
+            }
+        }
+        
+        // Initialize page on load
+        window.onload = function() {
+            displayReviews();
+            updateStats();
+        };
+    </script>
+</body>
+</html>

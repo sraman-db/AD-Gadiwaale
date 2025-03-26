@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - AD-Gadiwaale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .main {
+            display: flex;
+            min-height: calc(100vh - 180px);
+            padding: 40px 0;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #1a4d2e;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2d5ec8;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-link a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .benefits {
+            background-color: #eaf5ef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .benefits h3 {
+            color: #1a4d2e;
+            margin-bottom: 10px;
+        }
+        
+        .benefits ul {
+            list-style-type: none;
+        }
+        
+        .benefits li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .benefits li:before {
+            content: "✓";
+            color: #1a4d2e;
+            position: absolute;
+            left: 0;
+        }
+        
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🚗</span> AD-Gadiwaale
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Create Your Account</h2>
+                <form id="signupForm" action="index2.0.html" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="licenseNumber">Driver's License Number</label>
+                        <input type="text" id="licenseNumber" name="licenseNumber" required>
+                    </div>
+                    
+                    <!-- <div class="form-row">
+                        <div class="form-group">
+                            <label for="licenseState">License State/Province</label>
+                            <input type="text" id="licenseState" name="licenseState" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="licenseExpiry">License Expiry Date</label>
+                            <input type="date" id="licenseExpiry" name="licenseExpiry" required>
+                        </div> -->
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="termsAgree" name="termsAgree" required>
+                        <label for="termsAgree">I agree to the <a href="terms.html" target="_blank">Terms of Service and Privacy Policy</a></label>
+                    </div>
+                    
+                    
+                    <button type="submit" class="btn">Create Account</button>
+                    
+                    <div class="login-link">
+                        Already have an account? <a href="home.html">Log in</a>
+                    </div>
+                </form>
+                
+                <div class="benefits">
+                    <h3>Benefits of Creating an Account</h3>
+                    <ul>
+                        <li>Faster booking process with saved information</li>
+                        <li>Exclusive member-only discounts and offers</li>
+                        <li>Easy access to rental history and receipts</li>
+                        <li>Loyalty rewards for repeated bookings</li>
+                        <li>Priority customer service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AD-Gadiwaale Car Rental. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+    
+            const termsCheckbox = document.getElementById('termsAgree');
+    
+            if (!termsCheckbox.checked) {
+                alert('Please agree to the Terms of Service and Privacy Policy.');
+                return; // Stop further execution
+            }
+    
+            // Basic validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+    
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+    
+            // Collect form data
+            const userData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                password: password,
+                licenseNumber: document.getElementById('licenseNumber').value
+            };
+    
+            // Send data to server
+            fetch('http://localhost:5500/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || 'Registration failed');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Account created successfully! Redirecting to login...');
+                window.location.href = "index2.0.html";
+            })
+            .catch(error => {
+                alert('Registration error: ' + error.message);
+                console.log(JSON.stringify(userData));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        /* Header section with logout */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        /* Date selection section */
+        #date-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        @media (max-width: 768px) {
+            #date-selection {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .date-input {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .date-input label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Car list section */
+        #car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
+        }
+
+        .car-card.selected {
+            border-color: #3498db;
+            background-color: #f0f9ff;
+        }
+
+        .car-card h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .car-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Booking form section */
+        #booking-form {
+            margin-top: 1.5rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        #selected-car-info {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: fit-content;
+            justify-self: end;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Bookings list */
+        #booking-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .booking-card p {
+            margin: 0;
+        }
+
+        .booking-info {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .message {
+            padding: 1rem;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Payment section styles */
+        .payment-options {
+            margin-top: 1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .payment-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .upi-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+
+        .upi-info {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .upi-info img {
+            height: 25px;
+        }
+
+        .payment-status {
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .payment-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .payment-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .payment-status.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .qr-code {
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 1rem auto;
+            width: fit-content;
+        }
+
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .payment-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #ffffff;
+        border-left: 4px solid #2ecc71;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 0;
+        z-index: 1000;
+        max-width: 350px;
+        transform: translateX(400px);
+        transition: transform 0.3s ease-out;
+    }
+
+    .notification.show {
+        transform: translateX(0);
+    }
+
+    .notification.hidden {
+        display: none;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+    }
+
+    .notification-icon {
+        background-color: #2ecc71;
+        color: white;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+        font-weight: bold;
+    }
+
+    .notification-message {
+        font-size: 16px;
+        color: #2c3e50;
+    }
+
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Car Rental System</h1>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+    </div>
+    
+    <div class="section-container">
+        <h2>Select Your Rental Dates</h2>
+        <div id="date-selection">
+            <div class="date-input">
+                <label for="start-date">Start Date</label>
+                <input type="date" id="start-date" required>
+            </div>
+            <div class="date-input">
+                <label for="end-date">End Date</label>
+                <input type="date" id="end-date" required>
+            </div>
+            <button id="search-cars-btn">Search Available Cars</button>
+        </div>
+    </div>
+
+    <div class="section-container hidden" id="available-cars-section">
+        <h2>Available Cars</h2>
+        <div id="car-list"></div>
+        
+        <div id="booking-form" class="hidden">
+            <h3>Complete Your Booking</h3>
+            <div id="selected-car-info"></div>
+            <input type="text" id="customer-name" placeholder="Your Name" required>
+            
+            <div class="payment-options">
+                <div class="payment-title">Select Payment Method</div>
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <input type="radio" id="payment-upi" name="payment-method" value="upi" checked>
+                        <label for="payment-upi">UPI</label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" id="payment-cash" name="payment-method" value="cash">
+                        <label for="payment-cash">Cash on Delivery</label>
+                    </div>
+                </div>
+                
+                <div id="upi-payment-form" class="upi-form">
+                    <div class="upi-info">
+                        <img src="imgs/upi-logo.jpg" alt="UPI Logo">
+                        <span>Pay securely using any UPI app like Google Pay, PhonePe, Paytm, or BHIM</span>
+                    </div>
+                    <input type="text" id="upi-id" placeholder="Enter your UPI ID (e.g., name@upi)" required>
+                    <div class="qr-code">
+                        <img src="imgs/qr-code.jpg" alt="UPI QR Code">
+                        <p>Scan with any UPI app</p>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-buttons">
+                <button type="button" id="process-payment-btn">Process Payment</button>
+                <button type="submit" id="book-now-btn" disabled>Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>Your Bookings</h2>
+        <div id="booking-list">
+            <div class="message">No bookings yet</div>
+        </div>
+    </div>
+    
+    <div id="notification" class="notification hidden">
+        <div class="notification-content">
+            <div class="notification-icon">✓</div>
+            <div class="notification-message">You have successfully logged out</div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5500/api';
+        let cars = [];
+        let allBookings = []; // All bookings from the database
+        let sessionBookings = []; // Bookings made in the current session
+        let selectedCar = null;
+        let selectedStartDate = '';
+        let selectedEndDate = '';
+        let paymentStatus = null;
+
+        // Set minimum date to today for date inputs
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('start-date').min = today;
+        document.getElementById('end-date').min = today;
+
+        // Handle start date change
+        document.getElementById('start-date').addEventListener('change', function() {
+            const endDateInput = document.getElementById('end-date');
+            endDateInput.min = this.value;
+    
+            // Clear end date if it's before start date
+            if (endDateInput.value && endDateInput.value < this.value) {
+                endDateInput.value = '';
+            }
+        });
+
+        // Search for available cars based on selected dates
+        document.getElementById('search-cars-btn').addEventListener('click', function() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+    
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates');
+                return;
+            }
+    
+            selectedStartDate = startDate;
+            selectedEndDate = endDate;
+    
+            // Show available cars section
+            document.getElementById('available-cars-section').classList.remove('hidden');
+    
+            // Load cars from API (in a real app, you'd filter by availability for the selected dates)
+            loadAvailableCars(startDate, endDate);
+        });
+
+        // Load bookings from server
+        async function loadBookings() {
+            try {
+                const res = await fetch(`${API_URL}/bookings`);
+                allBookings = await res.json();
+                // Note: We don't update the booking list display with all bookings
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Check if a car is available during the selected dates
+        function isCarAvailable(carId, startDate, endDate) {
+            // Convert string dates to Date objects for comparison
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+    
+            // Check if car is booked for any overlapping period
+            return !allBookings.some(booking => {
+                if (booking.carId !== carId) return false;
+        
+                const bookingStart = new Date(booking.startDate);
+                const bookingEnd = new Date(booking.endDate);
+        
+                // Check for date overlap
+                return (
+                    (start <= bookingEnd && start >= bookingStart) || // Start date falls within a booking
+                    (end <= bookingEnd && end >= bookingStart) || // End date falls within a booking
+                    (start <= bookingStart && end >= bookingEnd) // Booking falls entirely within selected dates
+                );
+            });
+        }
+
+        // Load available cars
+        async function loadAvailableCars(startDate, endDate) {
+            try {
+                // Load bookings first to check availability
+                await loadBookings();
+        
+                // In a real app, you would pass the dates to the API to filter available cars
+                const res = await fetch(`${API_URL}/cars`);
+                cars = await res.json();
+        
+                const carList = document.getElementById('car-list');
+        
+                // Filter cars based on availability for selected dates
+                const availableCars = cars.filter(car => isCarAvailable(car._id, startDate, endDate));
+        
+                if (availableCars.length === 0) {
+                    carList.innerHTML = '<div class="message">No cars available for the selected dates</div>';
+                    return;
+                }
+        
+                carList.innerHTML = availableCars.map(car => `
+                    <div class="car-card" data-id="${car._id}">
+                    <h3>${car.name} (${car.year})</h3>
+                    <p>Rs. ${car.pricePerDay} per day</p>
+                    <p class="car-availability">${car.available ? 'Available' : 'Not Available'}</p>
+                </div>
+            `).join('');
+        
+        // Add click event to car cards
+        document.querySelectorAll('.car-card').forEach(card => {
+            card.addEventListener('click', function() {
+                selectCar(this.dataset.id);
+            });
+        });
+    } catch (error) {
+        console.error('Error loading cars:', error);
+        document.getElementById('car-list').innerHTML = '<div class="message">Error loading cars. Please try again.</div>';
+    }
+}
+
+// Select a car
+function selectCar(carId) {
+    // Remove selected class from all cards
+    document.querySelectorAll('.car-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    
+    // Add selected class to clicked card
+    document.querySelector(`.car-card[data-id="${carId}"]`).classList.add('selected');
+    
+    // Get selected car data
+    selectedCar = cars.find(car => car._id === carId);
+    
+    // Show booking form
+    const bookingForm = document.getElementById('booking-form');
+    bookingForm.classList.remove('hidden');
+    
+    // Update selected car info
+    document.getElementById('selected-car-info').textContent = 
+        `Selected: ${selectedCar.name} (${selectedCar.year}) -Rs. ${selectedCar.pricePerDay}/day from ${selectedStartDate} to ${selectedEndDate}`;
+
+    // Reset payment status
+    paymentStatus = null;
+    document.getElementById('book-now-btn').disabled = true;
+    
+    // Remove any existing payment status message
+    const existingStatus = document.querySelector('.payment-status');
+    if (existingStatus) {
+        existingStatus.remove();
+    }
+    
+    // Scroll to booking form
+    bookingForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Handle payment method selection
+document.querySelectorAll('input[name="payment-method"]').forEach(input => {
+    input.addEventListener('change', function() {
+        const upiForm = document.getElementById('upi-payment-form');
+        const processPaymentBtn = document.getElementById('process-payment-btn');
+        const bookNowBtn = document.getElementById('book-now-btn');
+        
+        if (this.value === 'upi') {
+            upiForm.classList.remove('hidden');
+            processPaymentBtn.classList.remove('hidden');
+            bookNowBtn.disabled = true;
+        } else {
+            upiForm.classList.add('hidden');
+            processPaymentBtn.classList.add('hidden');
+            bookNowBtn.disabled = false;
+        }
+        
+        // Remove any existing payment status message
+        const existingStatus = document.querySelector('.payment-status');
+        if (existingStatus) {
+            existingStatus.remove();
+        }
+    });
+});
+
+// Process UPI payment (simulated)
+function processUpiPayment(upiId) {
+    // Remove any existing payment status message
+    const existingStatus = document.querySelector('.payment-status');
+    if (existingStatus) {
+        existingStatus.remove();
+    }
+    
+    // Show pending status
+    showPaymentStatus('pending', 'Processing UPI payment...');
+    
+    // Simulate payment processing delay
+    setTimeout(() => {
+        // For demo, randomly succeed or fail
+        const result = Math.random() > 0.2 ? 'success' : 'failed';
+        
+        paymentStatus = result;
+        
+        if (result === 'success') {
+            showPaymentStatus('success', 'UPI payment successful!');
+            document.getElementById('book-now-btn').disabled = false;
+        } else {
+            showPaymentStatus('failed', 'UPI payment failed. Please try again.');
+            document.getElementById('book-now-btn').disabled = true;
+        }
+    }, 2000);
+}
+
+// Show payment status
+function showPaymentStatus(status, message) {
+    // Remove any existing status
+    const existingStatus = document.querySelector('.payment-status');
+    if (existingStatus) {
+        existingStatus.remove();
+    }
+    
+    // Create new status message
+    const statusEl = document.createElement('div');
+    statusEl.className = `payment-status ${status}`;
+    statusEl.textContent = message;
+    
+    // Add before the buttons
+    document.querySelector('.payment-buttons').before(statusEl);
+}
+
+// Add event listener for process payment button
+document.getElementById('process-payment-btn').addEventListener('click', function() {
+    const upiId = document.getElementById('upi-id').value;
+    
+    if (!upiId) {
+        alert('Please enter your UPI ID');
+        return;
+    }
+    
+    processUpiPayment(upiId);
+});
+
+// Save booking to database
+async function saveBookingToDatabase(booking) {
+    try {
+        const response = await fetch(`${API_URL}/bookings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to save booking');
+        }
+        
+        const savedBooking = await response.json();
+        return savedBooking;
+    } catch (error) {
+        console.error('Error saving booking:', error);
+        alert('Error saving booking: ' + error.message);
+        return null;
+    }
+}
+
+// Handle booking submission
+document.getElementById('book-now-btn').addEventListener('click', async function() {
+    const customerName = document.getElementById('customer-name').value;
+    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+    if (!customerName) {
+        alert('Please enter your name');
+        return;
+    }
+    
+    if (!selectedCar) {
+        alert('Please select a car');
+        return;
+    }
+
+    if (paymentStatus !== 'success' && paymentMethod === 'upi') {
+        alert('Please complete payment before booking');
+        return;
+    }
+    
+    // Create booking
+    const booking = {
+        carId: selectedCar._id,
+        carName: selectedCar.name,
+        customerName: customerName,
+        startDate: selectedStartDate,
+        endDate: selectedEndDate,
+        totalPrice: calculateTotalPrice(selectedStartDate, selectedEndDate, selectedCar.pricePerDay),
+        paymentMethod: paymentMethod,
+        paymentStatus: paymentMethod === 'cash' ? 'pending' : 'completed'
+    };
+    
+    // Save booking to database
+    const savedBooking = await saveBookingToDatabase(booking);
+    if (!savedBooking) return;
+    
+    // Add booking to local list
+    allBookings.push(savedBooking); // Add to all bookings for availability checking
+    sessionBookings.push(savedBooking); // Add to session bookings for display
+    updateBookingList();
+    
+    // Reset form
+    document.getElementById('customer-name').value = '';
+    document.getElementById('upi-id').value = '';
+    document.querySelectorAll('.car-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    document.getElementById('booking-form').classList.add('hidden');
+
+    // Reset payment status
+    paymentStatus = null;
+    
+    // Show success message
+    alert('Car booked successfully!');
+});
+
+// Calculate total price based on rental period
+function calculateTotalPrice(startDate, endDate, pricePerDay) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const days = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+    return days * pricePerDay;
+}
+
+// Update bookings list - only show session bookings
+function updateBookingList() {
+    const bookingList = document.getElementById('booking-list');
+    
+    if (sessionBookings.length === 0) {
+        bookingList.innerHTML = '<div class="message">No bookings yet</div>';
+        return;
+    }
+    
+    bookingList.innerHTML = sessionBookings.map(booking => `
+        <div class="booking-card">
+            <div class="booking-info">
+                <p><span class="label">Car:</span> ${booking.carName}</p>
+                <p><span class="label">Customer:</span> ${booking.customerName}</p>
+                <p><span class="label">Start Date:</span> ${booking.startDate}</p>
+                <p><span class="label">End Date:</span> ${booking.endDate}</p>
+                <p><span class="label">Total Price:</span>Rs. ${booking.totalPrice}</p>
+                <p><span class="label">Payment Method:</span> ${booking.paymentMethod.toUpperCase()}</p>
+                <p><span class="label">Payment Status:</span> ${booking.paymentStatus}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Handle logout
+document.getElementById('logout-btn').addEventListener('click', function() {
+        // Show notification
+        const notification = document.getElementById('notification');
+        notification.classList.remove('hidden');
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Automatically hide notification after 3 seconds and redirect
+        setTimeout(() => {
+            notification.style.animation = 'fadeOut 0.5s forwards';
+            setTimeout(() => {
+                // In a real app, you would use: window.location.href = 'login.html';
+                window.location.href = 'home.html';
+            }, 500);
+        }, 2500);
+    });
+
+// Initialize session bookings array
+document.addEventListener('DOMContentLoaded', () => {
+    sessionBookings = []; // Start with empty session bookings
+    loadBookings(); // Still load all bookings for availability checking
+});
+    </script>
+</body>
+</html>

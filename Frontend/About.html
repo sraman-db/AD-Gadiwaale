@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Car Rental System</title>
+    <style>
+        /* Reset and Base Styles */
+        * {margin: 0;padding: 0;box-sizing: border-box;}
+        
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;line-height: 1.6;color: #333;background-color: #f5f7fa;position: relative;}
+        
+        /* Background Design Elements */
+        body::before {content: "";position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(30, 58, 138, 0.01) 100%);z-index: -1;}
+        
+        .bg-pattern {position: fixed;top: 0;left: 0;width: 100%; height: 100%;background-image: radial-gradient(circle, #1e3a8a 1px, transparent 1px);background-size: 50px 50px;opacity: 0.03;z-index: -1;}
+        
+        /* Container */
+        .container {max-width: 1200px;margin: 0 auto;padding: 0 20px;}
+        
+        /* Header Styles */
+        header {background: linear-gradient(to right, #2536eb, #2536eb);color: white;padding: 20px 0;box-shadow: 0 4px 12px rgba(0,0,0,0.1);position: relative;z-index: 1000;
+        }
+        
+        header::after {content: '';position: absolute;bottom: -5px;left: 0;width: 100%;height: 5px;background: linear-gradient(90deg, #ff9500, #ff6b00, #ff9500);
+        }
+        
+        nav {display: flex;justify-content: space-between;align-items: center;
+        }
+        
+        .logo-container {display: flex;align-items: center;
+        }
+        
+        .logo-placeholder {width: 50px;height: 50px;background: linear-gradient(135deg, #ff9500, #ff6b00);border-radius: 10px;margin-right: 15px;display: flex;align-items: center;justify-content: center;color: white;font-size: 12px;box-shadow: 0 2px 10px rgba(255, 107, 0, 0.5);position: relative;overflow: hidden;
+        }
+        
+        .logo-placeholder::after {content: '';position: absolute;top: -50%;left: -50%;width: 200%;height: 200%;background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);transform: rotate(30deg);animation: shine 3s infinite;
+        }
+        
+        @keyframes shine { 0% { transform: translateX(-100%) rotate(30deg); }100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        .logo-text {font-size: 28px;font-weight: bold;letter-spacing: 1px;text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .logo-text span {color: #ff9500;
+        }
+        
+        .nav-links {display: flex;
+        }
+        
+        .nav-links a {color: white;text-decoration: none;margin-left: 30px;padding: 10px 0;font-weight: 500;position: relative;transition: all 0.3s;
+        }
+        
+        .nav-links a::after {content: '';position: absolute;width: 0;height: 2px;bottom: 0;left: 0;background-color: #ff9500;transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {color: #ff9500;
+        }
+        
+        .nav-links a:hover::after {width: 100%;
+        }
+        
+
+        
+        /* Main Content */
+        .about-section {background-color: white;border-radius: 12px;box-shadow: 0 10px 30px rgba(0,0,0,0.08);margin: 40px 0;padding: 40px;position: relative;overflow: hidden;
+        }
+        
+        .about-section::before {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 5px;background: linear-gradient(90deg, #1e3a8a, #ff9500);
+        }
+        
+        h1 {color: #1e3a8a;margin-bottom: 20px;font-size: 36px;position: relative;display: inline-block;
+        }
+        
+        h1::after {content: '';position: absolute;bottom: -5px;left: 0;width: 60px;height: 3px;background: #ff9500;
+        }
+        
+        h2 {color: #1e3a8a;margin: 30px 0 15px;font-size: 24px;position: relative;
+        }
+        
+        p {margin-bottom: 20px;color: #555;font-size: 16px;line-height: 1.7;
+        }
+        
+    
+        /* Features Section */
+        .features {margin: 30px 0;
+        }
+        
+        .features li {margin-bottom: 15px;list-style-type: none;padding-left: 30px;position: relative;transition: transform 0.3s;
+        }
+        
+        .features li:hover {transform: translateX(5px);
+        }
+        
+        .features li:before {content: "✓";color: white;background: linear-gradient(to right, #1e3a8a, #2d4eaf);width: 22px;height: 22px;border-radius: 50%;display: flex;align-items: center;justify-content: center;font-size: 12px;position: absolute;left: 0;top: 2px;box-shadow: 0 2px 5px rgba(30, 58, 138, 0.3);
+        }
+        
+        .process {counter-reset: process-counter;margin: 30px 0;
+        }
+        
+        .process li {margin-bottom: 20px;list-style-type: none;padding-left: 60px;position: relative;transition: transform 0.3s;
+        }
+        
+        .process li:hover {transform: translateX(5px);
+        }
+        
+        .process li:before {counter-increment: process-counter;content: counter(process-counter);color: white;background: linear-gradient(to right, #ff9500, #ff6b00);width: 40px;height: 40px;border-radius: 50%;display: flex;align-items: center;justify-content: center;position: absolute;left: 0;top: -5px;font-size: 18px;font-weight: bold;box-shadow: 0 4px 10px rgba(255, 149, 0, 0.3);
+        }
+        
+        .contact-info {background: linear-gradient(135deg, #f8f9fa, #f0f2f5);padding: 30px;border-radius: 12px;margin-top: 40px;position: relative;border-left: 4px solid #1e3a8a;box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .contact-info h2 {margin-top: 0;
+        }
+        
+        .contact-info p {margin-bottom: 15px;display: flex;align-items: center;
+        }
+        
+        .contact-info p strong {min-width: 100px;display: inline-block;color: #1e3a8a;
+        }
+        
+        .contact-info a {color: #1e3a8a;text-decoration: none;transition: color 0.3s;
+        }
+        
+        .contact-info a:hover {color: #ff9500;
+        }
+        
+        .tagline {font-style: italic;color: #1e3a8a;margin-top: 40px;text-align: center;font-size: 18px;font-weight: 500;position: relative;padding: 20px 0;
+        }
+        
+        .tagline::before,
+        .tagline::after {content: ''; position: absolute;width: 100px;height: 1px;background: linear-gradient(90deg, transparent, #1e3a8a, transparent);left: 50%;transform: translateX(-50%);
+        }
+        
+        .tagline::before {top: 0;
+        }
+        
+        .tagline::after {bottom: 0;
+        }
+        
+        /* Footer */
+        footer {background: linear-gradient(to right, #1e3a8a, #2d4eaf);color: white;padding: 40px 0 20px;margin-top: 40px;position: relative;
+        }
+        
+        footer::before {content: '';position: absolute;top: -5px;left: 0;width: 100%;height: 5px;background: linear-gradient(90deg, #ff9500, #ff6b00, #ff9500);
+        }
+        
+        .footer-content {display: flex;flex-wrap: wrap;justify-content: space-between;margin-bottom: 30px;
+        }
+        
+        .footer-column {flex: 1;min-width: 200px;margin-bottom: 20px;padding: 0 15px;
+        }
+        
+        .footer-column h3 {margin-bottom: 20px;position: relative;display: inline-block;padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {content: '';position: absolute;bottom: 0;left: 0;width: 30px;height: 2px;background: #ff9500;
+        }
+        
+        .footer-column ul {list-style: none;
+        }
+        
+        .footer-column ul li { margin-bottom: 10px;
+        }
+        
+        .footer-column a {color: #ddd;text-decoration: none;transition: color 0.3s;
+        }
+        
+        .footer-column a:hover { color: #ff9500;
+        }
+        
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links { margin: 15px 0;
+        }
+        
+        .social-links a {color: white;margin: 0 10px;text-decoration: none;transition: color 0.3s;font-size: 14px;
+        }
+        
+        .social-links a:hover {
+            color: #ff9500;
+        }
+        
+        /* Responsive Adjustments */
+        
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo-text">AD-<span>Gadiwaale</span></div>
+                </div>
+                <div class="nav-links">
+                    <a href="home.html">Home</a>
+                    <a href="cars.html">Cars</a>
+                    <a href="tour.html">Local Tourism</a>
+                    <a href="review.html">Review</a>
+                    <a href="contactus.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+
+        
+        <section class="about-section">
+            <h1>About Us</h1>
+            
+            <h2>Your Journey, Our Vehicles</h2>
+            <p>
+                At CarRent, we provide seamless car rental solutions designed to get you on the road quickly and confidently. 
+                Since our founding in 2010, we've been committed to offering reliable vehicles at competitive rates with 
+                exceptional customer service.
+            </p>
+            
+            
+            
+            <h2>Why Choose Us?</h2>
+            <p>
+                With a fleet of well-maintained vehicles ranging from economy cars to luxury sedans and SUVs, we offer 
+                options for every need and budget. Our straightforward booking process and transparent pricing make
+                renting with us a breeze.
+            </p>
+            
+            <ul class="features">
+                <li>Wide selection of quality vehicles for any occasion</li>
+                <li>Competitive rates with no hidden fees</li>
+                <li>Flexible pickup and return options</li>
+                <li>24/7 roadside assistance for peace of mind</li>
+                <li>Multiple convenient locations nationwide</li>
+                <li>Loyalty program with rewards for frequent renters</li>
+                <li>Comprehensive insurance options</li>
+                <li>Clean, sanitized vehicles for your safety</li>
+            </ul>
+            
+            <h2>How It Works</h2>
+            <ol class="process">
+                <li><strong>Choose your vehicle</strong> - Browse our fleet and select the perfect car for your needs</li>
+                <li><strong>Book online</strong> - Complete our simple reservation process with your details and preferences</li>
+                <li><strong>Pick up your car</strong> - Visit our location at your scheduled time with your license and payment method</li>
+                <li><strong>Enjoy the road</strong> - Drive with confidence knowing you're covered by our comprehensive service</li>
+                <li><strong>Return</strong> - Drop off the vehicle at the agreed location and time</li>
+            </ol>
+            
+            <div class="contact-info">
+                <h2>Office Hours</h2>
+                <p><strong>Phone:</strong> (+91) 9436079887</p>
+                <p><strong>Email:</strong> <a href="mailto:AD-Gadiwaale@carrental.com">AD-Gadiwaale@carrental.com</a></p>
+                <p><strong>Hours:</strong> Monday - Friday: 8am - 8pm, Weekends: 9am - 6pm</p>
+                <p><strong>Main Office:</strong> KIIT, Main Road, Patia, Bhubaneswar, Odisha, 751024</p>
+            </div>
+            
+            <p class="tagline">"Your journey begins with the right vehicle. Choose AD-Gadiwaale."</p>
+        </section>
+    </main>
+    
+</body>
+</html>
