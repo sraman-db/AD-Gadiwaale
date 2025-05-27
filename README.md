@@ -65,7 +65,7 @@ CAR RENTAL SYS/
 ### Installation
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/AD-Gadiwaale.git
+   git clone https://github.com/sraman-db/AD-Gadiwaale.git
    cd AD-Gadiwaale
    ```
 
